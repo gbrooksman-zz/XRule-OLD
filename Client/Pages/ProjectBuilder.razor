@@ -1,0 +1,79 @@
+﻿@page "/ProjectBuilder"
+
+@inject IAppDataContainer appData;
+@inject IAppStateContainer appState;
+@inject HttpClient httpClient;
+@inject NavigationManager nav;
+
+@using RuleEditor.Shared.Entities;
+
+<h3>Project Builder</h3>
+
+<EditForm EditContext="editContext">
+
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container text-center">
+        <div class="row  justify-content-center">
+            <div class="col-sm-4">
+                <p>Create a new Project</p>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtName" size="50"
+                           placeholder="name" @bind="project.Name" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtDescription" size="255"
+                           placeholder="description" @bind="project.Description" />
+            </div>
+        </div>
+
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <a class="btn btn-primary" @onclick="Save">Save</a>
+            </div>
+            <div class="col-sm-4">
+                <a class="btn btn-primary" @onclick="Close">Close</a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+</EditForm>
+
+
+@code
+{
+    private EditContext editContext;
+
+    private XProject project = new XProject();
+
+    [Parameter]
+    public Guid ProjectId { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected async Task Save()
+    {
+        await httpClient.PostAsJsonAsync("Project/Save", project);
+        nav.NavigateTo("/");
+
+    }
+
+    protected void Close()
+    {
+        nav.NavigateTo("/");
+    }
+
+}

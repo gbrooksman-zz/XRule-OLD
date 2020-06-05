@@ -1,0 +1,112 @@
+﻿@typeparam TItem
+
+@using RuleEditor.Client.Shared.Components.ViewModels
+
+@inherits DataGridModel<TItem>
+
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+<div class='dg-container'>
+    <table class='table table-bordered table-hover'>
+        <thead class="thead-light">
+            <tr style=@RowStyle class="blazor-grid-header">
+                @if (ShowCheckboxes == true)
+                {
+                    //leave an empty column
+                    <th></th>
+                }
+
+                @foreach (var col in this.Columns)
+                {
+                    var isColSortable = this.IsColumnSortable(col);
+                    var headerClasses = string.Join(" ", "header", (isColSortable ? "sortable" : ""), col.HeaderClass);
+                    <th class=@headerClasses style=@col.HeaderStyle @onclick="@(() => OnHeaderClicked(col))">
+                        @(col.Label)
+                    </th>
+
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var row in this.Rows)
+            {
+                var rowClasses = string.Join(" ",
+                    this.RowClass,
+                    (this.SelectionType != SelectionType.None ? "selectable" : ""),
+                    (row.IsSelected && this.ShowSelections ? "selected" : "un-selected")
+                );
+                <tr style=@RowStyle class=@rowClasses @onclick="()=>OnRowSelectedAsync(row)">
+                    @if (ShowCheckboxes == true)
+                    {
+                        <td>
+                            <input type="checkbox" checked="@(row.IsSelected)" @onchange="(e) => OnRowCheckedAsync(e,row)" />
+                        </td>
+                    }
+                    @foreach (var col in this.Columns)
+                    {
+                        <td class=@col.CellClass style=@col.CellStyle>
+                            @if (col.Template == null)
+                            {
+                                @this.GetItemCell(col, row)
+                            }
+                            else
+                            {
+                                @col.Template(row.Item);
+                            }
+
+                        </td>
+                    }
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <div class="pagination">
+
+        <button class="btn pagebutton btn-info" @onclick="@(e => OnFirstClicked(e))">&laquo;</button>
+        <button class="btn pagebutton btn-secondary" @onclick="@(e => OnPrevClicked(e))">Prev</button>
+
+        @* @for (int i = 1; i <= MaxPagesToDisplay; i++)
+            {
+                var currentPage = i;
+                <button class="btn pagebutton" @onclick="(e => OnPageSet(e, currentPage))">
+                    @currentPage
+                </button>
+            } *@
+
+        @for (int i = StartPage; i <= EndPage; i++)
+        {
+            var currentPage = i;
+            <button class="btn pagebutton" @onclick="(e => OnPageSet(e, currentPage))">
+                @currentPage
+            </button>
+        }
+
+
+        <button class="btn pagebutton btn-secondary" @onclick="@(e => OnNextClicked(e))">Next</button>
+        <button class="btn pagebutton btn-info" @onclick="@(e => OnLastClicked(e))">&raquo;</button>
+
+        <span class="pagebutton btn btn-link disabled">Page @CurrentPage of @TotalPages</span>
+
+    </div>
+
+</div>
+
+<div>
+    @if (this.ShowDebuggingInformation)
+    {
+        @_debug
+    }
+</div>
+
+
+@code
+{
+    string str = "";
+    public void Test(ChangeEventArgs e, Guid id)
+    {
+        str += e.Value;
+    }
+}

@@ -1,0 +1,96 @@
+﻿@page "/Login"
+
+@inject IAppStateContainer appState
+@inject IAppDataContainer appData
+@inject NavigationManager nav
+@inject HttpClient httpClient
+
+@using System.Net.Http.Json
+@using RuleEditor.Shared.Entities
+
+
+<EditForm EditContext="editContext">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container text-center">
+        <div class="row text-center d-flex justify-content-center p-4">
+            <div class="col-lg-12">
+                <img src="images/ul.png" height="100" width="100" />
+            </div>
+        </div>
+        <div class="row text-center d-flex justify-content-center">
+            <div class="col-lg-12">
+                <p>Welcome to an application!</p>
+                <p>This application is designed to be a simple way to create a GHS-based safety data sheet for the North American Market</p>
+            </div>
+        </div>
+        <div class="row  justify-content-center">
+            <div class="col-sm-4">
+                <p>Login to an existing account</p>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtEmail" size="25"
+                           placeholder="email" @bind-Value="formUser.Email" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="password" id="txtPassword" size="25"
+                           placeholder="password" @bind-Value="formUser.Password" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <button class="btn btn-primary" @onclick="LoginUser">Login</button>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <button class="btn btn-link" @onclick="SkipLogin">Use the site without logging in</button>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <a class="btn btn-link" href="/Signup">  Create an account </a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+</EditForm>
+
+
+@code
+{
+    private EditContext editContext;
+    private User formUser = new User();
+
+    protected override void OnInitialized()
+    {
+        editContext = new EditContext(formUser);
+    }
+
+    private void SkipLogin()
+    {
+
+        nav.NavigateTo("/ProjectList");
+    }
+
+
+    private void LoginUser()
+    {
+
+        if (!string.IsNullOrEmpty(formUser.Email) && !string.IsNullOrEmpty(formUser.Password))
+        {           
+                nav.NavigateTo("/ProjectList");
+            }
+            else
+            {
+            }
+        }
+    }
+
+}

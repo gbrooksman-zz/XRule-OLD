@@ -1,0 +1,95 @@
+﻿@page "/RuleBuilder"
+
+@inject IAppDataContainer appData;
+@inject IAppStateContainer appState;
+@inject HttpClient httpClient;
+@inject NavigationManager nav;
+
+@using RuleEditor.Shared.Entities;
+
+<h3>Rule Builder</h3>
+
+<EditForm EditContext="editContext">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="container text-center">
+        <div class="row  justify-content-center">
+            <div class="col-sm-4">
+                <p>Create a new Rule</p>
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtName" size="50"
+                           placeholder="name" @bind="rule.Name" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtDescription" size="255"
+                           placeholder="description" @bind="rule.Description" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtPriority" size="25"
+                           placeholder="priority (range (-1000 to 1000)" @bind="rule.Priority" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputText class="form-control" type="text" id="txtTags" size="25"
+                           placeholder="priority (range (-1000 to 1000)" @bind="rule.Tags" />
+            </div>
+        </div>
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <InputTextArea class="form-control"  id="txtBody" rows="30" cols="100"
+                           placeholder="rule text" @bind="rule.RawBody" />
+            </div>
+        </div>
+
+        <div class="row form-group justify-content-center">
+            <div class="col-sm-4">
+                <a class="btn btn-primary" @onclick="Save">  Create an account </a>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+
+
+
+
+
+
+</EditForm>
+
+
+
+
+
+
+@code 
+{   
+    private EditContext editContext;
+
+    private XRule rule = new XRule();
+
+    [Parameter]
+    public Guid RuleId { get; set; }
+
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+    }
+
+    protected async Task Save()
+    {
+        await httpClient.PostAsJsonAsync("Rule/Save", rule);
+
+    }
+
+}

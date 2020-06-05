@@ -15,6 +15,10 @@ namespace RuleEditor.Client
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+            builder.Services.AddSingleton<IAppStateContainer, AppStateContainer>();
+            builder.Services.AddSingleton<IAppDataContainer, AppDataContainer>();
+
             builder.RootComponents.Add<App>("app");
 
             builder.Services.AddTransient(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });

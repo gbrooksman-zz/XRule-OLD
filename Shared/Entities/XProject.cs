@@ -4,18 +4,19 @@ using System.Text;
 
 namespace RuleEditor.Shared.Entities
 {
-    public class XProject
+    public class XProject : XBase
     {
         public XProject()
         {
 
         }
 
-        public Guid Id { get; set; }
 
         public string Name { get; set; }
 
+        public List<Guid> RuleIdList { get; set; }
 
+        public bool IsActive { get; set; }
 
     }
 }

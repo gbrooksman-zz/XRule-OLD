@@ -1,0 +1,53 @@
+﻿@page "/ProjectList"
+
+@inject IAppDataContainer appData;
+@inject IAppStateContainer appState;
+@inject HttpClient httpClient;
+@inject NavigationManager nav;
+
+
+@using RuleEditor.Shared.Entities
+@using RuleEditor.Client.Shared.Components
+@using RuleEditor.Client.Shared.Components.ViewModels
+
+<h3>Project List</h3>
+
+<button class="button button-primary" @onclick="NewProject">New Project</button>
+
+<DataGrid TItem="XProject"
+          Items="@projectList"
+          SelectionType="SelectionType.SingleRow"
+          OnCheckedItemsChanged="HandleCheckedChanged"
+          PageSize="10">
+    <DataGridColumns>
+        <DataGridColumnModel TItem="XProject" Label="Name" PropertyName="Name" IsSortable="true" InitialSortType="SortType.Ascending" WidthPercent=40 />
+        <DataGridColumnModel TItem="XProject" Label="Description" PropertyName="Description" IsSortable="true" InitialSortType="SortType.Ascending" WidthPercent=60 />
+    </DataGridColumns>
+
+
+</DataGrid>
+
+
+@code
+{
+    public List<XProject> projectList = new List<XProject>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        projectList = await httpClient.GetFromJsonAsync<List<XProject>>("Project/GetAll");
+    }
+
+    private void NewProject()
+    {
+        nav.NavigateTo("/ProjectBuilder");
+    }
+
+    protected Task HandleCheckedChanged(IEnumerable<XProject> checkedItems)
+    {
+        XProject selectedProject = checkedItems.FirstOrDefault();
+
+        return null;
+    }
+
+
+}

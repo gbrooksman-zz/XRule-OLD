@@ -16,8 +16,7 @@ namespace RuleEditor.Server
 
         static AppDB()
         {
-            string dir = Directory.GetCurrentDirectory();
-            _connectionString = @"/data/rule_editor.db";
+            _connectionString = @"data/rule_editor.db";
             Name = _connectionString;
         }
 

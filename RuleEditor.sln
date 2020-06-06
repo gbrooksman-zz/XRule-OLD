@@ -9,6 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuleEditor.Client", "Client
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RuleEditor.Shared", "Shared\RuleEditor.Shared.csproj", "{A28E8101-6B5E-4BC8-9046-0C5D2BCA75DA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A2A34FD0-C938-450A-B8C9-498E90F77DF1}"
+	ProjectSection(SolutionItems) = preProject
+		snippets.txt = snippets.txt
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRules.Engine", "XRules.Engine\XRules.Engine.csproj", "{16F66074-1155-411C-BBBF-5F279EBE680E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XRules.Actions", "XRules.Actions\XRules.Actions.csproj", "{4AAA5C6E-98B0-4950-B941-547B8BEFECDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +36,14 @@ Global
 		{A28E8101-6B5E-4BC8-9046-0C5D2BCA75DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A28E8101-6B5E-4BC8-9046-0C5D2BCA75DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A28E8101-6B5E-4BC8-9046-0C5D2BCA75DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16F66074-1155-411C-BBBF-5F279EBE680E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16F66074-1155-411C-BBBF-5F279EBE680E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16F66074-1155-411C-BBBF-5F279EBE680E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16F66074-1155-411C-BBBF-5F279EBE680E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AAA5C6E-98B0-4950-B941-547B8BEFECDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AAA5C6E-98B0-4950-B941-547B8BEFECDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AAA5C6E-98B0-4950-B941-547B8BEFECDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AAA5C6E-98B0-4950-B941-547B8BEFECDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
